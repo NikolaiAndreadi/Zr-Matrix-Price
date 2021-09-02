@@ -14,7 +14,8 @@ SOURCES += \
 
 HEADERS += \
     mainwindow.h \
-    waste_containers.h
+    waste_containers.h \
+    waste_matrices.h
 
 FORMS += \
     mainwindow.ui
