@@ -13,7 +13,8 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    waste_containers.h
 
 FORMS += \
     mainwindow.ui
