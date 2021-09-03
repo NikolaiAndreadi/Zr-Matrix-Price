@@ -32,7 +32,7 @@ public:
     int len() { return filtered_c.length(); };
     waste_container_data operator[](int i) { return filtered_c[i]; };
 
-    void Append(waste_container_data new_waste_container) { containers.append(new_waste_container); };
+    void Append(waste_container_data new_waste_container) { containers.push_back(new_waste_container); };
 
     void Filter(int waste_class, double zr_percentage) {
         filtered_c.clear();

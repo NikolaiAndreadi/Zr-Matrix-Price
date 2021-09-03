@@ -46,7 +46,7 @@ class waste_matrices
 {
     QVector<waste_matrix> matrices;
 public:
-    void Append(waste_matrix new_waste_matrix) { matrices.append(new_waste_matrix); };
+    void Append(waste_matrix new_waste_matrix) { matrices.push_back(new_waste_matrix); };
 
     waste_matrix Select_by_name(QString selected_name) {
         foreach (auto &item, matrices)
