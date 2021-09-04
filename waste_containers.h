@@ -11,14 +11,13 @@ struct waste_container_data
     double volume; // in m^3
     double price;  // in Rub, per kg
     int waste_class;
-    double max_zr_percentage; // in range 0..1
 
-    waste_container_data(QString name, double volume, double price, int waste_class, double max_zr_percentage) :
+
+    waste_container_data(QString name, double volume, double price, int waste_class) :
         name(name),
         volume(volume),
         price(price),
-        waste_class(waste_class),
-        max_zr_percentage(max_zr_percentage)
+        waste_class(waste_class)
     {};
 
     waste_container_data() = delete; // we can only fill with full information
@@ -34,10 +33,10 @@ public:
 
     void Append(waste_container_data new_waste_container) { containers.push_back(new_waste_container); };
 
-    void Filter(int waste_class, double zr_percentage) {
+    void Filter(int waste_class) {
         filtered_c.clear();
         foreach (auto &item, containers)
-            if ((item.waste_class == waste_class) && (zr_percentage < item.max_zr_percentage))
+            if (item.waste_class == waste_class)
                 filtered_c.push_back(item);
     };
 };
