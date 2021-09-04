@@ -16,6 +16,7 @@ HEADERS += \
     mainwindow.h \
     waste_classes.h \
     waste_containers.h \
+    waste_data.h \
     waste_matrices.h
 
 FORMS += \
