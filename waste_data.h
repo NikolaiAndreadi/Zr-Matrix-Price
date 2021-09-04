@@ -7,7 +7,6 @@ class waste_data
 {
     double specific_activity; // MBq/kg
     double mass; // kg
-    double activity; //MBq
 
 public:
 
@@ -54,7 +53,7 @@ public:
     };
 
     double GetActivity() {return specific_activity * mass; };
-    double GetStrActivity() {return QString("%1").arg(GetActivity(), 0, 'f', 3); };
+    QString GetStrActivity() {return QString("%1").arg(GetActivity(), 0, 'f', 3); };
 
     double GetMass() {return mass; };
 

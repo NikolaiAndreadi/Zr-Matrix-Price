@@ -2,7 +2,7 @@
 #define WASTE_CLASSES_H
 
 #include <QVector>
-#include <QAlgo
+#include <algorithm>
 
 struct waste_class_data
 {
