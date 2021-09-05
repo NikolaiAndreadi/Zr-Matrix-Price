@@ -25,6 +25,19 @@ public:
     waste_matrices wmatrices;
     double zr_p_lower, zr_p_upper;
 
+    void updateWasteData();
+
+private slots:
+    void on_spinBox_SpecificActivity_valueChanged(double arg1);
+    void on_comboBox_SpecificActivityUnits_currentIndexChanged(int index);
+
+    void on_spinBox_WasteMass_valueChanged(double arg1);
+    void on_comboBox_WasteMassUnits_currentIndexChanged(int index);
+
+    void on_horizontalSlider_PercentToMatrix_valueChanged(int position);
+
+    void on_listWidget_ContainmentMatrices_itemSelectionChanged();
+    void on_tableView_AvailableContainers_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
