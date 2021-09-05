@@ -11,22 +11,42 @@
 #include "waste_matrices.h"
 
 
-// TODO: send to console error place
+void ErrorLog(QString funcname, QString groupname, QString fieldname="") {
+    if (fieldname == "")
+        qCritical() << funcname + ": damaged '" + groupname+ "'";
+    else
+        qCritical() << funcname + ": field '" + fieldname +
+                       "' is corrupted for '" + groupname + "'";
+}
+
+
 waste_classes LoadClasses(QString path, bool &ok) {
     waste_classes result;
     QSettings file(path, QSettings::IniFormat);
 
     QStringList groups = file.childGroups();
-    if (groups.length() == 0) { ok = false; return result; }
+    if (groups.length() == 0) {
+        ok = false;
+        ErrorLog("LoadClasses", "not found");
+        return result;
+    }
 
     foreach(const QString &tmpname, groups) {
         file.beginGroup(tmpname);
 
         double spa = file.value("SpecActivity").toDouble();
-        if (spa <= 0) { ok = false; return result; }
+        if (spa <= 0) {
+            ok = false;
+            ErrorLog("LoadClasses", tmpname, "SpecActivity");
+            return result;
+        }
 
         double dc = file.value("DisposalCost").toDouble();
-        if (dc <= 0) { ok = false; return result; }
+        if (dc <= 0) {
+            ok = false;
+            ErrorLog("LoadClasses", tmpname, "DisposalCost");
+            return result;
+        }
 
         file.endGroup();
 
@@ -43,21 +63,42 @@ waste_containers LoadContainers(QString path, bool &ok) {
     QSettings file(path, QSettings::IniFormat);
 
     QStringList groups = file.childGroups();
-    if (groups.length() == 0) { ok = false; return result; }
+    if (groups.length() == 0) {
+        ok = false;
+        ErrorLog("LoadContainers", "not found");
+        return result;
+    }
 
     foreach(const QString &tmpname, groups) {
         file.beginGroup(tmpname);
 
         QString name = file.value("Name").toString();
+        if (name == "") {
+            ok = false;
+            ErrorLog("LoadContainers", tmpname, "Name");
+            return result;
+        }
 
         double volume = file.value("Volume").toDouble();
-        if (volume <= 0) { ok = false; return result; }
+        if (volume <= 0) {
+            ok = false;
+            ErrorLog("LoadContainers", tmpname, "Volume");
+            return result;
+        }
 
         int price = file.value("Price").toInt();
-        if (price <= 0) { ok = false; return result; }
+        if (price <= 0) {
+            ok = false;
+            ErrorLog("LoadContainers", tmpname, "Price");
+            return result;
+        }
 
         int waste_class = file.value("WasteClass").toInt();
-        if (waste_class <= 0) { ok = false; return result; }
+        if (waste_class <= 0) {
+            ok = false;
+            ErrorLog("LoadContainers", tmpname, "WasteClass");
+            return result;
+        }
 
         file.endGroup();
 
@@ -74,21 +115,42 @@ waste_matrices LoadMatrices(QString path, bool &ok) {
     QSettings file(path, QSettings::IniFormat);
 
     QStringList groups = file.childGroups();
-    if (groups.length() == 0) { ok = false; return result; }
+    if (groups.length() == 0) {
+        ok = false;
+        ErrorLog("LoadMatrices", "not found");
+        return result;
+    }
 
     foreach(const QString &tmpname, groups) {
         file.beginGroup(tmpname);
 
         QString name = file.value("Name").toString();
+        if (name == "") {
+            ok = false;
+            ErrorLog("LoadMatrices", tmpname, "Name");
+            return result;
+        }
 
         double density = file.value("Density").toDouble();
-        if (density <= 0) { ok = false; return result; }
+        if (density <= 0) {
+            ok = false;
+            ErrorLog("LoadMatrices", tmpname, "Density");
+            return result;
+        }
 
         int price = file.value("Price").toInt();
-        if (price <= 0) { ok = false; return result; }
+        if (price <= 0) {
+            ok = false;
+            ErrorLog("LoadMatrices", tmpname, "Price");
+            return result;
+        }
 
         double max_zr_percent = file.value("MaxZrPercent").toDouble();
-        if ((max_zr_percent <= 0) || (max_zr_percent > 1)) { ok = false; return result; }
+        if ((max_zr_percent <= 0) || (max_zr_percent > 1)) {
+            ok = false;
+            ErrorLog("LoadMatrices", tmpname, "MaxZrPercent");
+            return result;
+        }
 
         file.endGroup();
 
@@ -103,14 +165,26 @@ waste_matrices LoadMatrices(QString path, bool &ok) {
 void LoadZrLimits(QString path, double &lower, double &upper, bool &ok) {
     QSettings file(path, QSettings::IniFormat);
     QStringList groups = file.childGroups();
-    if (groups.length() != 1) { ok = false; return; }
+    if (groups.length() == 0) {
+        ok = false;
+        ErrorLog("LoadZrLimits", "not found");
+        return;
+    }
     file.beginGroup(groups[0]);
 
     lower = file.value("ZrLowerPercentageLimit").toDouble();
-    if ((lower <= 0) || (lower > 1)) { ok = false; return; }
+    if ((lower <= 0) || (lower > 1)) {
+        ok = false;
+        ErrorLog("LoadZrLimits", "ZrLowerPercentageLimit");
+        return;
+    }
 
     upper = file.value("ZrUpperPercentageLimit").toDouble();
-    if ((upper <= 0) || (upper > 1)) { ok = false; return; }
+    if ((upper <= 0) || (upper > 1)) {
+        ok = false;
+        ErrorLog("LoadZrLimits", "ZrUpperPercentageLimit");
+        return;
+    }
 
     file.endGroup();
     ok = true;
