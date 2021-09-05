@@ -44,7 +44,6 @@ struct matrix_calculated_params
     matrix_calculated_params() = delete; // take only fully inserted data fields
 };
 
-// TODO: add filtration by Zr percent
 class waste_matrices
 {
     QVector<waste_matrix> matrices;
@@ -73,10 +72,11 @@ public:
         return matrix_calculated_params(mass_pure, mass_with_zr, volume, total_price, specific_activity);
     };
 
-    QStringList Get_names(){
+    QStringList Get_filtered_names(double zr_percent){
         QStringList output;
         foreach(auto &item, matrices)
-            output.append(item.name);
+            if (zr_percent < item.max_zr_percentage)
+                output.append(item.name);
         return output;
     };
 };
