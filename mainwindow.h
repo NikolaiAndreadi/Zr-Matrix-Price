@@ -25,7 +25,12 @@ public:
     waste_matrices wmatrices;
     double zr_p_lower, zr_p_upper;
 
+    void init();
     void updateWasteData();
+    void updateContainers();
+    void updateMatrices();
+    void updateMatrixRelatedFields();
+    double getZrPercentage();
 
 private slots:
     void on_spinBox_SpecificActivity_valueChanged(double arg1);

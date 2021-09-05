@@ -232,7 +232,7 @@ int main(int argc, char *argv[])
         qCritical("Failed to read ./settings/zr_limits.ini");
         exit(EXIT_FAILURE);
     }
-
+    w.init();
     w.show();
     return a.exec();
 }

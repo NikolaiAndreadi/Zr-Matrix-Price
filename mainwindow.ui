@@ -336,13 +336,13 @@
       <widget class="QLabel" name="label_MatrixMass">
        <property name="minimumSize">
         <size>
-         <width>170</width>
+         <width>130</width>
          <height>20</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>150</width>
+         <width>130</width>
          <height>20</height>
         </size>
        </property>
@@ -367,13 +367,13 @@
       <widget class="QLabel" name="label_MatrixVolume">
        <property name="minimumSize">
         <size>
-         <width>170</width>
+         <width>130</width>
          <height>20</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>150</width>
+         <width>130</width>
          <height>20</height>
         </size>
        </property>
@@ -394,48 +394,17 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_MatrixWasteSpecificActivity">
-       <property name="minimumSize">
-        <size>
-         <width>170</width>
-         <height>20</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>20</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Удельная активность отходов:</string>
-       </property>
-       <property name="textFormat">
-        <enum>Qt::AutoText</enum>
-       </property>
-       <property name="scaledContents">
-        <bool>false</bool>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_MatrixPureMass">
        <property name="minimumSize">
         <size>
-         <width>170</width>
+         <width>130</width>
          <height>20</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>150</width>
+         <width>130</width>
          <height>20</height>
         </size>
        </property>
@@ -460,13 +429,13 @@
       <widget class="QLabel" name="label_MatrixPrice">
        <property name="minimumSize">
         <size>
-         <width>170</width>
+         <width>130</width>
          <height>20</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>150</width>
+         <width>130</width>
          <height>20</height>
         </size>
        </property>
@@ -491,13 +460,13 @@
       <widget class="QLabel" name="label_MatrixPriceValue">
        <property name="minimumSize">
         <size>
-         <width>80</width>
+         <width>120</width>
          <height>20</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>60</width>
+         <width>120</width>
          <height>20</height>
         </size>
        </property>
@@ -521,13 +490,13 @@
       <widget class="QLabel" name="label_MatrixVolumeValue">
        <property name="minimumSize">
         <size>
-         <width>80</width>
+         <width>120</width>
          <height>20</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>60</width>
+         <width>120</width>
          <height>20</height>
         </size>
        </property>
@@ -551,13 +520,13 @@
       <widget class="QLabel" name="label_MatrixPureMassValue">
        <property name="minimumSize">
         <size>
-         <width>80</width>
+         <width>120</width>
          <height>20</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>60</width>
+         <width>120</width>
          <height>20</height>
         </size>
        </property>
@@ -581,13 +550,13 @@
       <widget class="QLabel" name="label_MatrixMassValue">
        <property name="minimumSize">
         <size>
-         <width>80</width>
+         <width>120</width>
          <height>20</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>60</width>
+         <width>120</width>
          <height>20</height>
         </size>
        </property>
@@ -611,13 +580,13 @@
       <widget class="QLabel" name="label_MatrixWasteSpecificActivityValue">
        <property name="minimumSize">
         <size>
-         <width>80</width>
+         <width>120</width>
          <height>20</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>60</width>
+         <width>120</width>
          <height>20</height>
         </size>
        </property>
@@ -641,13 +610,13 @@
       <widget class="QLabel" name="label_MatrixWasteClassValue">
        <property name="minimumSize">
         <size>
-         <width>80</width>
+         <width>120</width>
          <height>20</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>60</width>
+         <width>120</width>
          <height>20</height>
         </size>
        </property>
@@ -673,13 +642,13 @@
       <widget class="QLabel" name="label_MatrixWasteClass">
        <property name="minimumSize">
         <size>
-         <width>170</width>
+         <width>130</width>
          <height>20</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>150</width>
+         <width>130</width>
          <height>20</height>
         </size>
        </property>
@@ -751,6 +720,37 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_MatrixWasteSpecificActivity">
+       <property name="minimumSize">
+        <size>
+         <width>130</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>130</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Уд. активность отходов:</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::AutoText</enum>
+       </property>
+       <property name="scaledContents">
+        <bool>false</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>

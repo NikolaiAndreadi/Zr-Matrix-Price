@@ -47,8 +47,12 @@ struct matrix_calculated_params
 class waste_matrices
 {
     QVector<waste_matrix> matrices;
+    QVector<waste_matrix> filtered_m;
+
 public:
+
     void Append(waste_matrix new_waste_matrix) { matrices.push_back(new_waste_matrix); };
+
 
     waste_matrix Select_by_name(QString selected_name) {
         foreach (auto &item, matrices)
@@ -72,11 +76,19 @@ public:
         return matrix_calculated_params(mass_pure, mass_with_zr, volume, total_price, specific_activity);
     };
 
-    QStringList Get_filtered_names(double zr_percent){
+
+    void Filter(double zr_percent) {
+        filtered_m.clear();
+        foreach (auto &item, matrices)
+            if (zr_percent <= item.max_zr_percentage)
+                filtered_m.push_back(item);
+    };
+
+
+    QStringList Get_names(){
         QStringList output;
-        foreach(auto &item, matrices)
-            if (zr_percent < item.max_zr_percentage)
-                output.append(item.name);
+        foreach(auto &item, filtered_m)
+            output.push_back(item.name);
         return output;
     };
 };
