@@ -12,7 +12,6 @@
 
 
 // TODO: send to console error place
-// TODO: zr limits settings
 waste_classes LoadClasses(QString path, bool &ok) {
     waste_classes result;
     QSettings file(path, QSettings::IniFormat);
@@ -37,6 +36,7 @@ waste_classes LoadClasses(QString path, bool &ok) {
     ok = true;
     return result;
 }
+
 
 waste_containers LoadContainers(QString path, bool &ok) {
     waste_containers result;
@@ -100,6 +100,21 @@ waste_matrices LoadMatrices(QString path, bool &ok) {
 }
 
 
+void LoadZrLimits(QString path, double &lower, double &upper, bool &ok) {
+    QSettings file(path, QSettings::IniFormat);
+    QStringList groups = file.childGroups();
+    if (groups.length() != 1) { ok = false; return; }
+    file.beginGroup(groups[0]);
+
+    lower = file.value("ZrLowerPercentageLimit").toDouble();
+    if ((lower <= 0) || (lower > 1)) { ok = false; return; }
+
+    upper = file.value("ZrUpperPercentageLimit").toDouble();
+    if ((upper <= 0) || (upper > 1)) { ok = false; return; }
+
+    file.endGroup();
+    ok = true;
+}
 
 
 int main(int argc, char *argv[])
@@ -135,6 +150,12 @@ int main(int argc, char *argv[])
     w.wmatrices = LoadMatrices(currdir+"/settings/matrices.ini", ok);
     if (!ok) {
         qCritical("Failed to read ./settings/matrices.ini");
+        exit(EXIT_FAILURE);
+    }
+
+    LoadZrLimits(currdir+"/settings/zr_limits.ini", w.zr_p_lower, w.zr_p_upper, ok);
+    if (!ok) {
+        qCritical("Failed to read ./settings/zr_limits.ini");
         exit(EXIT_FAILURE);
     }
 

@@ -23,6 +23,8 @@ public:
     waste_containers wcontatiners;
     waste_data wdata;
     waste_matrices wmatrices;
+    double zr_p_lower, zr_p_upper;
+
 
 private:
     Ui::MainWindow *ui;
