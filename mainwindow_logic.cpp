@@ -1,6 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 #include <QColor>
+
+#include <QStandardItemModel>
+#include <QStandardItem>
 
 void MainWindow::init() {
     ui->horizontalSlider_PercentToMatrix->
@@ -13,6 +17,8 @@ void MainWindow::init() {
 
     ui->spinBox_SpecificActivity->setValue(1);
     ui->spinBox_WasteMass->setValue(1);
+
+    ui->tableView_AvailableContainers->resizeColumnsToContents();
 
     updateWasteData();
     updateMatrices();
@@ -80,9 +86,9 @@ void MainWindow::updateMatrixRelatedFields() {
     QString sel_mtx_name = ui->listWidget_ContainmentMatrices->
             currentItem()->text();
     auto matrix_calc = wmatrices.Calculate_params(sel_mtx_name,
-                                                  getZrPercentage(),
-                                                  wdata.GetMass(),
-                                                  wdata.GetActivity());
+                                             getZrPercentage(),
+                                             wdata.GetMass(),
+                                             wdata.GetActivity());
 
     // MATRIX MASS WITH ZR
     text = QString("%1 кг").arg(matrix_calc.mass_with_zr, 5, 'e', 1, ' ');
@@ -117,8 +123,57 @@ void MainWindow::updateMatrixRelatedFields() {
     tmpcolor.setGreen( Source.green() + (((Target.green() - Source.green()) * waste_class) / num_steps));
     tmpcolor.setBlue( Source.blue()  + (((Target.blue()  - Source.blue())  * waste_class) / num_steps));
     ui->label_MatrixWasteClassValue->setStyleSheet(QString("color: " + tmpcolor.name() + ";"));
+
+    updateContainers(matrix_calc);
 }
 
 
-void MainWindow::updateContainers() {
+void MainWindow::updateContainers(matrix_calculated_params &matrix_calc) {
+    auto *model = new QStandardItemModel;
+    int n_containers;
+    double container_price, disposal_price, sum_price;
+    QStandardItem *item;
+    QStringList headers;
+
+    headers.append("Название");
+    headers.append("Кол-во конт-ов");
+    headers.append("Сумм. цена конт-ов");
+    headers.append("Цена захоронения");
+    headers.append("Сумма");
+    model->setHorizontalHeaderLabels(headers);
+
+    double mtx_class = wclasses.CalcWasteClass(matrix_calc.specific_activity);
+    wcontatiners.Filter(mtx_class);
+
+    for (int i=0; i<wcontatiners.len(); i++) {
+        item = new QStandardItem(wcontatiners[i].name);
+        item->setTextAlignment(Qt::AlignCenter);
+        model->setItem(i,0, item);
+
+        n_containers = ceil(matrix_calc.volume/wcontatiners[i].volume);
+        item = new QStandardItem(QString("%1 шт.").arg(n_containers,2));
+        item->setTextAlignment(Qt::AlignCenter);
+        model->setItem(i,1, item);
+
+        container_price = n_containers * wcontatiners[i].price;
+        item = new QStandardItem(QString("%1 руб.").arg(container_price, 6, 'f', 2, ' '));
+        item->setTextAlignment(Qt::AlignCenter);
+        model->setItem(i,2, item);
+
+        disposal_price = wclasses.CalcDisposalCost(mtx_class) * n_containers;
+        item = new QStandardItem(QString("%1 руб.").arg(disposal_price, 6, 'f', 2, ' '));
+        item->setTextAlignment(Qt::AlignCenter);
+        model->setItem(i,3, item);
+
+        sum_price = container_price + disposal_price + matrix_calc.total_price;
+        item = new QStandardItem(QString("%1 руб.").arg(sum_price, 6, 'f', 2, ' '));
+        item->setTextAlignment(Qt::AlignCenter);
+        model->setItem(i,4, item);
+    }
+
+    ui->tableView_AvailableContainers->setModel(model);
+    ui->tableView_AvailableContainers->setVisible(false);
+    ui->tableView_AvailableContainers->sortByColumn(5, Qt::SortOrder::AscendingOrder);
+    ui->tableView_AvailableContainers->setVisible(true);
+
 }

@@ -24,10 +24,11 @@ public:
     waste_data wdata;
     waste_matrices wmatrices;
     double zr_p_lower, zr_p_upper;
+    QString currdir;
 
     void init();
     void updateWasteData();
-    void updateContainers();
+    void updateContainers(matrix_calculated_params &);
     void updateMatrices();
     void updateMatrixRelatedFields();
     double getZrPercentage();
@@ -43,6 +44,8 @@ private slots:
 
     void on_listWidget_ContainmentMatrices_itemSelectionChanged();
     void on_tableView_AvailableContainers_clicked(const QModelIndex &index);
+
+    void on_pushButton_SaveResults_clicked();
 
 private:
     Ui::MainWindow *ui;

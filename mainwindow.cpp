@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -50,3 +51,11 @@ void MainWindow::on_listWidget_ContainmentMatrices_itemSelectionChanged() {
 void MainWindow::on_tableView_AvailableContainers_clicked(const QModelIndex &index) {
     ui->statusBar->showMessage(index.data().toString(), 2000);
 }
+
+void MainWindow::on_pushButton_SaveResults_clicked()
+{
+    QString filename = QFileDialog::getSaveFileName(this, tr("Сохранить результаты..."),
+                                            currdir, tr("Text files (*.csv)"));
+
+}
+

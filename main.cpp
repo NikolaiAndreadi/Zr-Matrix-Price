@@ -207,6 +207,7 @@ int main(int argc, char *argv[])
     MainWindow w;
 
     QString currdir = a.applicationDirPath();
+    w.currdir = currdir;
     bool ok;
 
     w.wclasses = LoadClasses(currdir+"/settings/waste_classes.ini", ok);
