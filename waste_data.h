@@ -56,6 +56,7 @@ public:
     QString GetStrActivity() {return QString("%1").arg(GetActivity(), 0, 'f', 3); };
 
     double GetMass() {return mass; };
+    double GetSpecificActivity() {return specific_activity; };
 
 };
 

@@ -32,6 +32,7 @@ public:
     void updateMatrices();
     void updateMatrixRelatedFields();
     double getZrPercentage();
+    void save_file();
 
 private slots:
     void on_spinBox_SpecificActivity_valueChanged(double arg1);

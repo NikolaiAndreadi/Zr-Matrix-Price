@@ -11,7 +11,8 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    mainwindow_logic.cpp
+    mainwindow_logic.cpp \
+    savefile.cpp
 
 HEADERS += \
     mainwindow.h \
