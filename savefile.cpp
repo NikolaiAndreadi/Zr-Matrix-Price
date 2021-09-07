@@ -46,6 +46,8 @@ void MainWindow::save_file() {
 
     using namespace Qt;
 
+    fout.setRealNumberPrecision(10);
+
     fout << "Отчёт стоимости переработки РАО Zr" << endl;
     fout << "Можно импортировать в excel с двоеточием как разделитель" << endl;
     fout << "По вопросам обращаться: nikolai.andreadi@chemistry.msu.ru" << endl;
@@ -54,15 +56,15 @@ void MainWindow::save_file() {
     fout << endl << "Данные РАО" << endl;
     fout << "Удельная активность, МБк/кг: " << wdata.GetSpecificActivity() << endl;
     fout << "Масса, кг: " << wdata.GetMass() << endl;
-    fout << "Активность, МБк: " << wdata.GetSpecificActivity() << endl << endl;
+    fout << "Активность, МБк: " << wdata.GetActivity() << endl;
 
-    fout << "Данные выбранной матрицы" << endl;
+    fout << endl << "Данные выбранной матрицы" << endl;
     fout << "Название: " << sel_mtx_name << endl;
     fout << "Макс доля Zr в матрице (по массе): " << sel_mtx.max_zr_percentage << endl;
     fout << "Плотность, кг/м^3: " << sel_mtx.density_final << endl;
     fout << "Цена за кг, руб: " << sel_mtx.price_per_kg << endl;
 
-    fout << "Данные выбранной матрицы c РАО" << endl;
+    fout << endl << "Данные выбранной матрицы c РАО" << endl;
     fout << "Доля Zr в матрице (по массе): " << getZrPercentage() << endl;
     fout << "Масса чистой матрицы, кг: " << data_sel_mtx.mass_pure << endl;
     fout << "Стоимость матрицы руб: " << data_sel_mtx.total_price << endl;
@@ -72,28 +74,28 @@ void MainWindow::save_file() {
 
     double mtx_class = wclasses.CalcWasteClass(data_sel_mtx.specific_activity);
     double one_cnt_disp_cost = wclasses.CalcDisposalCost(mtx_class);
-    fout << "Класс отходов: " << ui->label_MatrixWasteClassValue << endl;
+    fout << endl << "Класс отходов: " << ui->label_MatrixWasteClassValue->text() << endl;
     fout << "Стоимость захоронения 1 контейнера: " <<
              one_cnt_disp_cost << endl;
 
-    fout << "Данные выбранного контейнера" << endl;
+    fout << endl << "Данные выбранного контейнера" << endl;
     fout << "Название: " << sel_cnt.name << endl;
     fout << "Объем, м^3: " << sel_cnt.volume << endl;
     fout << "Стоимость за шт., руб.: " << sel_cnt.price << endl;
 
     int n_containers = ceil(data_sel_mtx.volume/sel_cnt.volume);
-    fout << "Данные выбранного контейнера с отходами" << endl;
+    fout << endl << "Данные выбранного контейнера с отходами" << endl;
     fout << "Количество, шт: " << n_containers << endl;
     fout << "Стоимость контейнеров, руб.: " << sel_cnt.price*n_containers << endl;
     fout << "Стоимость захоронения контейнеров, руб.: " << one_cnt_disp_cost*n_containers << endl;
 
     fout << endl << "Фин. отчет" << endl;
     fout << "Наименование : Цена за еденицу : Кол-во : Итого" << endl;
-    fout << "Матрица " << sel_mtx_name << " : " <<
+    fout << "Матрица \"" << sel_mtx_name << "\" : " <<
             sel_mtx.price_per_kg << " : " <<
             data_sel_mtx.mass_pure << " : " <<
             data_sel_mtx.total_price << endl;
-    fout << "Контейнер " << sel_cnt.name << " : " <<
+    fout << "Контейнер \"" << sel_cnt.name << "\" : " <<
             sel_cnt.price << " : " <<
             n_containers << " : " <<
             sel_cnt.price*n_containers << endl;
