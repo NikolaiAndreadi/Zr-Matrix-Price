@@ -56,4 +56,3 @@ void MainWindow::on_pushButton_SaveResults_clicked()
 {
     save_file();
 }
-

@@ -204,6 +204,7 @@ int main(int argc, char *argv[])
             break;
         }
     }
+
     MainWindow w;
 
     QString currdir = a.applicationDirPath();
