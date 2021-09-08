@@ -5,6 +5,7 @@
 #include <QTranslator>
 #include <QSettings>
 #include <QStringList>
+#include <QMessageBox>
 
 #include "waste_classes.h"
 #include "waste_containers.h"
@@ -214,24 +215,32 @@ int main(int argc, char *argv[])
     w.wclasses = LoadClasses(currdir+"/settings/waste_classes.ini", ok);
     if (!ok) {
         qCritical("Failed to read ./settings/waste_classes.ini");
+        QMessageBox::information(&w, "Ошибка открытия файла",
+                                 "./settings/waste_classes.ini\nПодробности в консоли");
         exit(EXIT_FAILURE);
     }
 
     w.wcontatiners = LoadContainers(currdir+"/settings/containers.ini", ok);
     if (!ok) {
         qCritical("Failed to read ./settings/containers.ini");
+        QMessageBox::information(&w, "Ошибка открытия файла",
+                                 "./settings/containers.ini\nПодробности в консоли");
         exit(EXIT_FAILURE);
     }
 
     w.wmatrices = LoadMatrices(currdir+"/settings/matrices.ini", ok);
     if (!ok) {
         qCritical("Failed to read ./settings/matrices.ini");
+        QMessageBox::information(&w, "Ошибка открытия файла",
+                                 "./settings/matrices.ini\nПодробности в консоли");
         exit(EXIT_FAILURE);
     }
 
     LoadZrLimits(currdir+"/settings/zr_limits.ini", w.zr_p_lower, w.zr_p_upper, ok);
     if (!ok) {
         qCritical("Failed to read ./settings/zr_limits.ini");
+        QMessageBox::information(&w, "Ошибка открытия файла",
+                                 "./settings/zr_limits.ini\nПодробности в консоли");
         exit(EXIT_FAILURE);
     }
     w.init();
