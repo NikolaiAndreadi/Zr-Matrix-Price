@@ -129,6 +129,14 @@ void MainWindow::updateMatrixRelatedFields() {
 
 
 void MainWindow::updateContainers(matrix_calculated_params &matrix_calc) {
+    QString sel_cnt_name;
+    int sel_cnt_idx;
+    auto sel_cnt = ui->tableView_AvailableContainers->currentIndex();
+    if (sel_cnt.isValid()) {
+        sel_cnt_name = wcontatiners[sel_cnt.row()].name;
+    }
+
+
     auto *model = new QStandardItemModel;
     int n_containers;
     double container_price, disposal_price, sum_price;
@@ -169,11 +177,19 @@ void MainWindow::updateContainers(matrix_calculated_params &matrix_calc) {
         item = new QStandardItem(QString("%1 руб.").arg(sum_price, 6, 'f', 2, ' '));
         item->setTextAlignment(Qt::AlignCenter);
         model->setItem(i,4, item);
+
+        if (sel_cnt_name == wcontatiners[i].name)
+            sel_cnt_idx = i;
+
     }
 
     ui->tableView_AvailableContainers->setModel(model);
     ui->tableView_AvailableContainers->setVisible(false);
     ui->tableView_AvailableContainers->sortByColumn(5, Qt::SortOrder::AscendingOrder);
     ui->tableView_AvailableContainers->setVisible(true);
+    if (sel_cnt.isValid())
+        ui->tableView_AvailableContainers->selectRow(sel_cnt_idx);
+    else
+        ui->tableView_AvailableContainers->selectRow(0);
 
 }
