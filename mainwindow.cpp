@@ -14,30 +14,6 @@ MainWindow::~MainWindow() {
 }
 
 
-void MainWindow::on_spinBox_SpecificActivity_valueChanged(double) {
-    updateWasteData();
-    updateMatrices();
-}
-
-
-void MainWindow::on_comboBox_SpecificActivityUnits_currentIndexChanged(int) {
-    updateWasteData();
-    updateMatrices();
-}
-
-
-void MainWindow::on_spinBox_WasteMass_valueChanged(double) {
-    updateWasteData();
-    updateMatrices();
-}
-
-
-void MainWindow::on_comboBox_WasteMassUnits_currentIndexChanged(int) {
-    updateWasteData();
-    updateMatrices();
-}
-
-
 void MainWindow::on_horizontalSlider_PercentToMatrix_valueChanged(int) {
     updateMatrices();
 }
@@ -52,7 +28,31 @@ void MainWindow::on_tableView_AvailableContainers_clicked(const QModelIndex &ind
     ui->statusBar->showMessage(index.data().toString(), 2000);
 }
 
-void MainWindow::on_pushButton_SaveResults_clicked()
-{
+
+void MainWindow::on_pushButton_SaveResults_clicked() {
     save_file();
+}
+
+
+void MainWindow::on_doubleSpinBox_WasteMass_valueChanged(double arg1) {
+    wdata.SetMass(arg1);
+    updateWasteData();
+    updateMatrices();
+    updateMatrixRelatedFields();
+}
+
+
+void MainWindow::on_radioButton_ZrCarrier_clicked() {
+    wdata.SetZrCarrier();
+    updateWasteData();
+    updateMatrices();
+    updateMatrixRelatedFields();
+}
+
+
+void MainWindow::on_radioButton_ZrO2Carrier_clicked() {
+    wdata.SetZrO2Carrier();
+    updateWasteData();
+    updateMatrices();
+    updateMatrixRelatedFields();
 }

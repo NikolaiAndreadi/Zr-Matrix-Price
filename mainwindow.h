@@ -11,6 +11,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -35,18 +36,18 @@ public:
     void save_file();
 
 private slots:
-    void on_spinBox_SpecificActivity_valueChanged(double arg1);
-    void on_comboBox_SpecificActivityUnits_currentIndexChanged(int index);
-
-    void on_spinBox_WasteMass_valueChanged(double arg1);
-    void on_comboBox_WasteMassUnits_currentIndexChanged(int index);
-
     void on_horizontalSlider_PercentToMatrix_valueChanged(int position);
 
     void on_listWidget_ContainmentMatrices_itemSelectionChanged();
     void on_tableView_AvailableContainers_clicked(const QModelIndex &index);
 
     void on_pushButton_SaveResults_clicked();
+
+    void on_doubleSpinBox_WasteMass_valueChanged(double arg1);
+
+    void on_radioButton_ZrCarrier_clicked();
+
+    void on_radioButton_ZrO2Carrier_clicked();
 
 private:
     Ui::MainWindow *ui;

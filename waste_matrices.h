@@ -4,6 +4,7 @@
 #include <QString>
 #include <QVector>
 
+
 struct waste_matrix
 {
     QString name;
@@ -22,6 +23,7 @@ struct waste_matrix
 
     waste_matrix()  = delete; // take only fully inserted data fields
 };
+
 
 struct matrix_calculated_params
 {
@@ -43,6 +45,7 @@ struct matrix_calculated_params
 
     matrix_calculated_params() = delete; // take only fully inserted data fields
 };
+
 
 class waste_matrices
 {

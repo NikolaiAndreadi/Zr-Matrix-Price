@@ -6,7 +6,12 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 
+
 void MainWindow::init() {
+    wdata.SetMass(1);
+    wdata.SetZrO2Carrier();
+    ui->radioButton_ZrO2Carrier->setChecked(true);
+
     ui->horizontalSlider_PercentToMatrix->
             setRange(int(zr_p_lower*1000), int(zr_p_upper*1000));
     ui->horizontalSlider_PercentToMatrix->setValue(int(zr_p_lower*1000));
@@ -14,9 +19,6 @@ void MainWindow::init() {
     wmatrices.Filter(zr_p_lower);
     ui->listWidget_ContainmentMatrices->addItems(wmatrices.Get_names());
     ui->listWidget_ContainmentMatrices->setCurrentRow(0);
-
-    ui->spinBox_SpecificActivity->setValue(1);
-    ui->spinBox_WasteMass->setValue(1);
 
     ui->tableView_AvailableContainers->resizeColumnsToContents();
 
@@ -33,12 +35,6 @@ double MainWindow::getZrPercentage() {
 
 
 void MainWindow::updateWasteData() {
-    wdata.CalcSpecificActivity(
-                ui->spinBox_SpecificActivity->value(),
-                ui->comboBox_SpecificActivityUnits->currentIndex());
-    wdata.CalcMass(
-                ui->spinBox_WasteMass->value(),
-                ui->comboBox_WasteMassUnits->currentIndex());
     ui->label_ActivityValue->setText(wdata.GetStrActivity());
 }
 
@@ -66,8 +62,7 @@ void MainWindow::updateMatrices() {
         int row = ui->listWidget_ContainmentMatrices->row(search[0]);
         ui->listWidget_ContainmentMatrices->setCurrentRow(row);
     }
-    else
-    {
+    else {
        selected_matrix = ui->listWidget_ContainmentMatrices->
                currentItem();
 

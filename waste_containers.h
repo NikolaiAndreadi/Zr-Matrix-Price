@@ -4,6 +4,7 @@
 #include <QString>
 #include <QVector>
 
+
 // waste_container_data contains info about single type of container
 struct waste_container_data
 {
@@ -22,6 +23,7 @@ struct waste_container_data
 
     waste_container_data() = delete; // we can only fill with full information
 };
+
 
 class waste_containers
 {

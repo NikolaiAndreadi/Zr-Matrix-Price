@@ -4,6 +4,7 @@
 #include <QVector>
 #include <algorithm>
 
+
 struct waste_class_data
 {
     double specific_activity_upper_limit;
@@ -18,6 +19,7 @@ struct waste_class_data
         return specific_activity_upper_limit < comp.specific_activity_upper_limit;
     }
 };
+
 
 class waste_classes
 {
