@@ -8,8 +8,33 @@
 
 
 void MainWindow::init() {
-    wdata.SetMass(1);
-    wdata.SetZrO2Carrier();
+    // init isotopes table
+    auto *model = new QStandardItemModel;
+
+    QStringList headers;
+    headers.append("Название изотопа");
+    headers.append("Удельная активность, МБк/кг");
+    model->setHorizontalHeaderLabels(headers);
+
+    int counter=0;
+    foreach(auto &family, wdata.GetIsotopeFamilies())
+        foreach(auto &iname, wdata.GetIsotopeNames(family)) {
+            auto item = new QStandardItem(iname);
+            item->setTextAlignment(Qt::AlignCenter);
+            item->setFlags(item->flags()^Qt::ItemIsEditable);
+            model->setItem(counter, 0, item);
+
+            item = new QStandardItem("0");
+            item->setTextAlignment(Qt::AlignCenter);
+            model->setItem(counter, 1, item);
+            counter++;
+        }
+
+    ui->tableView_Isotopes->setModel(model);
+    ui->tableView_Isotopes->resizeColumnsToContents();
+
+    // done
+
     ui->radioButton_ZrO2Carrier->setChecked(true);
 
     ui->horizontalSlider_PercentToMatrix->

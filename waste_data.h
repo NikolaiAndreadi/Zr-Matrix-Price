@@ -58,6 +58,13 @@ public:
             out.push_back(item.name);
         return out;
     };
+    QStringList GetIsotopeNames(QString family) {
+        QStringList out;
+        foreach (auto &item, isotopes)
+            if (item.family == family)
+                out.push_back(item.name);
+        return out;
+    };
     QStringList GetIsotopeFamilies() {
         QSet<QString> out;
         foreach (auto &item, isotopes)
@@ -84,6 +91,14 @@ public:
         foreach (auto &item, isotopes)
             sum += item.spec_activity;
         return sum;
+    };
+
+    void SetSpecificActivity(QString name, double spec_activity) {
+        for (int i=0; i<isotopes.length(); i++)
+            if (isotopes[i].name == name) {
+                isotopes[i].spec_activity = spec_activity;
+                return;
+            }
     };
 
 };

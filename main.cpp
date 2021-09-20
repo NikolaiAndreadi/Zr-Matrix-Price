@@ -7,6 +7,7 @@
 #include <QStringList>
 #include <QMessageBox>
 
+#include "waste_data.h"
 #include "waste_classes.h"
 #include "waste_containers.h"
 #include "waste_matrices.h"
@@ -191,6 +192,45 @@ void LoadZrLimits(QString path, double &lower, double &upper, bool &ok) {
     ok = true;
 }
 
+waste_data LoadIsotopes(QString path, bool &ok) {
+    waste_data result;
+    QSettings file(path, QSettings::IniFormat);
+
+    QStringList groups = file.childGroups();
+    if (groups.length() == 0) {
+        ok = false;
+        ErrorLog("LoadIsotopes", "not found");
+        return result;
+    }
+
+    foreach(const QString &tmpname, groups) {
+        file.beginGroup(tmpname);
+
+        QString name = file.value("Name").toString();
+        if (name == "") {
+            ok = false;
+            ErrorLog("LoadIsotopes", tmpname, "Name");
+            return result;
+        }
+
+        QString family = file.value("Family").toString();
+        if (family  == "") {
+            ok = false;
+            ErrorLog("LoadIsotopes", tmpname, "Family");
+            return result;
+        }
+
+        file.endGroup();
+
+        result.AddIsotope(name, family);
+    }
+
+    result.SetMass(1);
+    result.SetZrO2Carrier();
+    ok = true;
+    return result;
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -211,6 +251,14 @@ int main(int argc, char *argv[])
     QString currdir = a.applicationDirPath();
     w.currdir = currdir;
     bool ok;
+
+    w.wdata = LoadIsotopes(currdir+"/settings/isotopes.ini", ok);
+    if (!ok) {
+        qCritical("Failed to read ./settings/isotopes.ini");
+        QMessageBox::information(&w, "Ошибка открытия файла",
+                                 "./settings/isotopes.ini\nПодробности в консоли");
+        exit(EXIT_FAILURE);
+    }
 
     w.wclasses = LoadClasses(currdir+"/settings/waste_classes.ini", ok);
     if (!ok) {
