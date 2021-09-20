@@ -54,7 +54,7 @@ void MainWindow::save_file() {
     fout << "Исходный код программы: https://github.com/NikolaiAndreadi/ZrPrice" << endl;
 
     fout << endl << "Данные РАО" << endl;
-    fout << "Удельная активность, МБк/кг: " << wdata.GetSpecificActivity() << endl;
+    fout << "Удельная активность, МБк/кг: " << wdata.GetSumSpecificActivity() << endl;
     fout << "Масса, кг: " << wdata.GetMass() << endl;
     fout << "Активность, МБк: " << wdata.GetActivity() << endl;
 
