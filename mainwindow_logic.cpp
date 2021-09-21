@@ -2,36 +2,36 @@
 #include "ui_mainwindow.h"
 
 #include <QColor>
-
+#include <QTableWidgetItem>
 #include <QStandardItemModel>
 #include <QStandardItem>
 
 
 void MainWindow::init() {
     // init isotopes table
-    auto *model = new QStandardItemModel;
-
+    ui->tableWidget_Isotopes->setColumnCount(2);
     QStringList headers;
     headers.append("Название изотопа");
     headers.append("Удельная активность, МБк/кг");
-    model->setHorizontalHeaderLabels(headers);
+    ui->tableWidget_Isotopes->setHorizontalHeaderLabels(headers);
 
+    ui->tableWidget_Isotopes->setRowCount(wdata.GetIsotopeCount());
     int counter=0;
     foreach(auto &family, wdata.GetIsotopeFamilies())
         foreach(auto &iname, wdata.GetIsotopeNames(family)) {
-            auto item = new QStandardItem(iname);
+            auto item = new QTableWidgetItem(iname);
             item->setTextAlignment(Qt::AlignCenter);
             item->setFlags(item->flags()^Qt::ItemIsEditable);
-            model->setItem(counter, 0, item);
+            ui->tableWidget_Isotopes->setItem(counter, 0, item);
 
-            item = new QStandardItem("0");
+            item = new QTableWidgetItem("0");
             item->setTextAlignment(Qt::AlignCenter);
-            model->setItem(counter, 1, item);
+            ui->tableWidget_Isotopes->setItem(counter, 1, item);
+
             counter++;
         }
 
-    ui->tableView_Isotopes->setModel(model);
-    ui->tableView_Isotopes->resizeColumnsToContents();
+    ui->tableWidget_Isotopes->resizeColumnsToContents();
 
     // done
 

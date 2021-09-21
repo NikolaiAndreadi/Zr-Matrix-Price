@@ -46,13 +46,13 @@
       <widget class="QLabel" name="label_ZrPercent">
        <property name="minimumSize">
         <size>
-         <width>150</width>
+         <width>160</width>
          <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>150</width>
+         <width>160</width>
          <height>16777215</height>
         </size>
        </property>
@@ -130,9 +130,9 @@
    <widget class="QWidget" name="formLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>437</x>
+      <x>450</x>
       <y>280</y>
-      <width>291</width>
+      <width>271</width>
       <height>171</height>
      </rect>
     </property>
@@ -648,10 +648,10 @@
    <widget class="QLabel" name="label_WasteMass">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>81</width>
-      <height>31</height>
+      <x>510</x>
+      <y>9</y>
+      <width>91</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -671,8 +671,8 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>50</y>
-      <width>411</width>
+      <y>0</y>
+      <width>361</width>
       <height>20</height>
      </rect>
     </property>
@@ -692,9 +692,9 @@
    <widget class="QPushButton" name="pushButton_SaveResults">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>10</y>
-      <width>181</width>
+      <x>390</x>
+      <y>80</y>
+      <width>331</width>
       <height>31</height>
      </rect>
     </property>
@@ -702,13 +702,13 @@
      <string>Сохранить результаты</string>
     </property>
    </widget>
-   <widget class="QTableView" name="tableView_Isotopes">
+   <widget class="QTableWidget" name="tableWidget_Isotopes">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>70</y>
-      <width>431</width>
-      <height>161</height>
+      <y>20</y>
+      <width>361</width>
+      <height>211</height>
      </rect>
     </property>
     <property name="lineWidth">
@@ -719,6 +719,12 @@
     </property>
     <property name="editTriggers">
      <set>QAbstractItemView::DoubleClicked</set>
+    </property>
+    <property name="showDropIndicator" stdset="0">
+     <bool>false</bool>
+    </property>
+    <property name="dragDropOverwriteMode">
+     <bool>false</bool>
     </property>
     <property name="selectionMode">
      <enum>QAbstractItemView::NoSelection</enum>
@@ -732,10 +738,25 @@
     <property name="cornerButtonEnabled">
      <bool>false</bool>
     </property>
-    <attribute name="horizontalHeaderHighlightSections">
+    <property name="rowCount">
+     <number>0</number>
+    </property>
+    <property name="columnCount">
+     <number>0</number>
+    </property>
+    <attribute name="horizontalHeaderCascadingSectionResizes">
      <bool>false</bool>
     </attribute>
+    <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderStretchLastSection">
+     <bool>true</bool>
+    </attribute>
     <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderCascadingSectionResizes">
      <bool>false</bool>
     </attribute>
     <attribute name="verticalHeaderHighlightSections">
@@ -745,9 +766,9 @@
    <widget class="QLabel" name="label_Activity">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>70</y>
-      <width>139</width>
+      <x>420</x>
+      <y>120</y>
+      <width>171</width>
       <height>22</height>
      </rect>
     </property>
@@ -761,8 +782,8 @@
    <widget class="QLabel" name="label_ActivityValue">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>70</y>
+      <x>592</x>
+      <y>120</y>
       <width>91</width>
       <height>21</height>
      </rect>
@@ -782,52 +803,13 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>10</y>
-      <width>221</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Носитель РАО</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="radioButton_ZrCarrier">
-       <property name="maximumSize">
-        <size>
-         <width>40</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Zr</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="radioButton_ZrO2Carrier">
-       <property name="text">
-        <string>ZrO2</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_WasteMass">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>11</y>
-      <width>161</width>
-      <height>31</height>
+      <x>600</x>
+      <y>20</y>
+      <width>121</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="decimals">
@@ -842,6 +824,48 @@
     <property name="value">
      <double>1.000000000000000</double>
     </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>10</y>
+      <width>81</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Носитель РАО</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignHCenter">
+      <widget class="QRadioButton" name="radioButton_ZrCarrier">
+       <property name="maximumSize">
+        <size>
+         <width>40</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Zr</string>
+       </property>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignHCenter">
+      <widget class="QRadioButton" name="radioButton_ZrO2Carrier">
+       <property name="text">
+        <string>ZrO2</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar">

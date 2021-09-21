@@ -50,6 +50,7 @@ public:
     void AddIsotope(QString name, QString family) {
         isotopes.push_back(isotope(name, family));
     };
+    int GetIsotopeCount() { return isotopes.length(); };
 
 
     QStringList GetIsotopeNames() {

@@ -56,3 +56,19 @@ void MainWindow::on_radioButton_ZrO2Carrier_clicked() {
     updateMatrices();
     updateMatrixRelatedFields();
 }
+
+void MainWindow::on_tableWidget_Isotopes_cellChanged(int row, int column) {
+    auto item = ui->tableWidget_Isotopes->item(row, column);
+    bool ok;
+    double value = item->text().toDouble(&ok);
+    if (ok) {
+        auto name = ui->tableWidget_Isotopes->item(row, column-1)->text();
+        wdata.SetSpecificActivity(name, value);
+    }
+
+    if (column != 0) {
+        auto name = ui->tableWidget_Isotopes->item(row, column-1)->text();
+        auto strvalue = QString("%1").arg(wdata.GetSpecificActivityByName(name));
+        item->setData(column-1, strvalue);
+    }
+}

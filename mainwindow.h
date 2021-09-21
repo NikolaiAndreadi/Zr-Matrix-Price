@@ -49,6 +49,8 @@ private slots:
 
     void on_radioButton_ZrO2Carrier_clicked();
 
+    void on_tableWidget_Isotopes_cellChanged(int row, int column);
+
 private:
     Ui::MainWindow *ui;
 };
