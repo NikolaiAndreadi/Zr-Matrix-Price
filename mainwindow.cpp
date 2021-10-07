@@ -71,4 +71,7 @@ void MainWindow::on_tableWidget_Isotopes_cellChanged(int row, int column) {
         auto strvalue = QString("%1").arg(wdata.GetSpecificActivityByName(name));
         item->setData(column-1, strvalue);
     }
+    updateWasteData();
+    updateMatrices();
+    updateMatrixRelatedFields();
 }

@@ -6,6 +6,7 @@
 #include <QSettings>
 #include <QStringList>
 #include <QMessageBox>
+#include <QMap>
 
 #include "waste_data.h"
 #include "waste_classes.h"
@@ -22,7 +23,7 @@ void ErrorLog(QString funcname, QString groupname, QString fieldname="") {
 }
 
 
-waste_classes LoadClasses(QString path, bool &ok) {
+waste_classes LoadClasses(QString path, waste_data *wd, bool &ok) {
     waste_classes result;
     QSettings file(path, QSettings::IniFormat);
 
@@ -33,15 +34,11 @@ waste_classes LoadClasses(QString path, bool &ok) {
         return result;
     }
 
+    QStringList families = wd->GetIsotopeFamilies();
+    families.append("all");
+
     foreach(const QString &tmpname, groups) {
         file.beginGroup(tmpname);
-
-        double spa = file.value("SpecActivity").toDouble();
-        if (spa <= 0) {
-            ok = false;
-            ErrorLog("LoadClasses", tmpname, "SpecActivity");
-            return result;
-        }
 
         double dc = file.value("DisposalCost").toDouble();
         if (dc <= 0) {
@@ -50,9 +47,26 @@ waste_classes LoadClasses(QString path, bool &ok) {
             return result;
         }
 
+        if (tmpname == "Lowest") {
+            result.SetLowestCost(dc);
+            continue;
+        }
+
+        QMap<QString, double> boundaries; // familyname->sp.activity lower bound
+        foreach(const QString &tmpfamily, families) {
+            double spa = file.value("SpecActivity_"+tmpfamily).toDouble();
+            if (spa > 0)
+                boundaries[tmpfamily]=spa;
+        }
+
         file.endGroup();
 
-        result.Append(waste_class_data(spa, dc));
+        if (boundaries.isEmpty()) {
+            ok = false;
+            ErrorLog("LoadClasses", tmpname, "Specific acivities fields");
+            return result;
+        }
+        result.Append(waste_class_data(boundaries, dc));
     }
 
     ok = true;
@@ -260,7 +274,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    w.wclasses = LoadClasses(currdir+"/settings/waste_classes.ini", ok);
+    w.wclasses = LoadClasses(currdir+"/settings/waste_classes.ini", &w.wdata, ok);
     if (!ok) {
         qCritical("Failed to read ./settings/waste_classes.ini");
         QMessageBox::information(&w, "Ошибка открытия файла",

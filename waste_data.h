@@ -68,8 +68,13 @@ public:
     };
     QStringList GetIsotopeFamilies() {
         QSet<QString> out;
-        foreach (auto &item, isotopes)
-            out.insert(item.family);
+        foreach (const auto &item, isotopes){
+            QString tmpstr = item.family;
+            out.insert(tmpstr);
+            if (tmpstr[tmpstr.length()-1].isDigit())
+                tmpstr.chop(1);
+            out.insert(tmpstr);
+        }
         return QStringList(out.begin(), out.end());
     };
 

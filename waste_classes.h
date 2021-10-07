@@ -25,12 +25,14 @@ class waste_classes
 {
     // should be ordered from the highest to the lowest class (e.g. lowest spec. activity to highest)
     QVector<waste_class_data> classes;
+    double lowest_cost;
 public:
 
     void Append(waste_class_data new_waste_class) {
         classes.push_back(new_waste_class);
         std::sort(classes.begin(), classes.end());
     };
+    void SetLowestCost(double cost) { lowest_cost = cost; }; // TODO: implement lowest cost
 
     unsigned int GetWasteClassCount() { return classes.length()+1; };
 
