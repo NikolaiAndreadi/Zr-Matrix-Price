@@ -29,6 +29,7 @@ public:
 
     void SetZrCarrier() { isZrCarrier = true; };
     void SetZrO2Carrier() {isZrCarrier = false; };
+    bool GetisZrCarrier() { return isZrCarrier; };
 
 
     void SetMass(double m) { mass = m; };
@@ -75,6 +76,7 @@ public:
                 tmpstr.chop(1);
             out.insert(tmpstr);
         }
+        out.insert("all");
         return QStringList(out.begin(), out.end());
     };
 
@@ -82,7 +84,7 @@ public:
     double GetSpecificActivityByFamily(QString family) {
         double sum = 0.0;
         foreach (auto &item, isotopes)
-            if (item.family == family)
+            if ( item.family.contains(family, Qt::CaseInsensitive) || family == "all" )
                 sum += item.spec_activity;
         return sum;
     };

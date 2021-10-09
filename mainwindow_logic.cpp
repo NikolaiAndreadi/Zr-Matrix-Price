@@ -111,11 +111,11 @@ void MainWindow::updateMatrixRelatedFields() {
                                              wdata.GetActivity());
 
     // MATRIX MASS WITH ZR
-    text = QString("%1 кг").arg(matrix_calc.mass_with_zr, 5, 'e', 1, ' ');
+    text = QString("%1 кг").arg(matrix_calc.mass_with_zr, 5, 'e', 2, ' ');
     ui->label_MatrixMassValue->setText(text);
 
     // MATRIX MASS WITHOUT ZR
-    text = QString("%1 кг").arg(matrix_calc.mass_pure, 5, 'e', 1, ' ');
+    text = QString("%1 кг").arg(matrix_calc.mass_pure, 5, 'e', 2, ' ');
     ui->label_MatrixPureMassValue->setText(text);
 
     // MATRIX VOLUME
@@ -131,7 +131,7 @@ void MainWindow::updateMatrixRelatedFields() {
     ui->label_MatrixWasteSpecificActivityValue->setText(text);
 
     // MATRIX WASTE CLASS
-    int waste_class = wclasses.CalcWasteClass(matrix_calc.specific_activity);
+    int waste_class = wclasses.CalcWasteClass(wdata, getZrPercentage());
     text = QString("%1").arg(waste_class, 1);
     ui->label_MatrixWasteClassValue->setText(text);
     // introduce color
@@ -170,7 +170,7 @@ void MainWindow::updateContainers(matrix_calculated_params &matrix_calc) {
     headers.append("Сумма");
     model->setHorizontalHeaderLabels(headers);
 
-    double mtx_class = wclasses.CalcWasteClass(matrix_calc.specific_activity);
+    double mtx_class = wclasses.CalcWasteClass(wdata, getZrPercentage());
     wcontatiners.Filter(mtx_class);
 
     for (int i=0; i<wcontatiners.len(); i++) {

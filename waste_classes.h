@@ -3,20 +3,25 @@
 
 #include <QVector>
 #include <algorithm>
+#include <QMap>
+#include "waste_data.h"
+#include <QDebug>
 
 
 struct waste_class_data
 {
-    double specific_activity_upper_limit;
+    int class_number;
+    QMap<QString, double> boundaries;
     double waste_container_disposal_cost;
-    waste_class_data(double specific_activity_upper_limit, double waste_container_disposal_cost) :
-        specific_activity_upper_limit(specific_activity_upper_limit),
+    waste_class_data(int class_number, QMap<QString, double> boundaries, double waste_container_disposal_cost) :
+        class_number(class_number),
+        boundaries(boundaries),
         waste_container_disposal_cost(waste_container_disposal_cost)
     {}
     waste_class_data() = delete; // we can only fill with full information
 
     bool operator< (const waste_class_data &comp) const {
-        return specific_activity_upper_limit < comp.specific_activity_upper_limit;
+        return class_number < comp.class_number;
     }
 };
 
@@ -36,17 +41,21 @@ public:
 
     unsigned int GetWasteClassCount() { return classes.length()+1; };
 
-    unsigned int CalcWasteClass(double specific_activity) {
-        unsigned int waste_class = classes.length()+1;
-        foreach(auto &item, classes) {
-            if (specific_activity < item.specific_activity_upper_limit)
-                return waste_class;
-            waste_class--;
+    unsigned int CalcWasteClass(waste_data wd, double percentage) {
+        unsigned int waste_class = 1;
+        foreach(auto &wclass, classes) {
+            foreach(auto &familyname, wclass.boundaries.keys()) {
+                if (wd.GetSpecificActivityByFamily(familyname)*percentage > wclass.boundaries[familyname])
+                    return waste_class;
+            }
+            waste_class++;
         }
         return waste_class;
     };
 
     double CalcDisposalCost(unsigned int waste_class) {
+        if (waste_class > classes.length())
+            return lowest_cost;
         return classes[classes.length()-waste_class].waste_container_disposal_cost;
     };
 };

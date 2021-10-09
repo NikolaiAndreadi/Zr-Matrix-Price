@@ -35,7 +35,6 @@ waste_classes LoadClasses(QString path, waste_data *wd, bool &ok) {
     }
 
     QStringList families = wd->GetIsotopeFamilies();
-    families.append("all");
 
     foreach(const QString &tmpname, groups) {
         file.beginGroup(tmpname);
@@ -66,7 +65,14 @@ waste_classes LoadClasses(QString path, waste_data *wd, bool &ok) {
             ErrorLog("LoadClasses", tmpname, "Specific acivities fields");
             return result;
         }
-        result.Append(waste_class_data(boundaries, dc));
+
+        auto c = tmpname.back();
+        if (c.isDigit())
+            result.Append(waste_class_data(c.digitValue(), boundaries, dc));
+        else {
+            ErrorLog("LoadClasses", tmpname, "Does not contain digit at the end");
+            return result;
+        }
     }
 
     ok = true;
@@ -178,27 +184,27 @@ waste_matrices LoadMatrices(QString path, bool &ok) {
 }
 
 
-void LoadZrLimits(QString path, double &lower, double &upper, bool &ok) {
+void SliderLimits(QString path, double &lower, double &upper, bool &ok) {
     QSettings file(path, QSettings::IniFormat);
     QStringList groups = file.childGroups();
     if (groups.length() == 0) {
         ok = false;
-        ErrorLog("LoadZrLimits", "not found");
+        ErrorLog("SliderLimits", "not found");
         return;
     }
     file.beginGroup(groups[0]);
 
-    lower = file.value("ZrLowerPercentageLimit").toDouble();
+    lower = file.value("WasteLowerPercentageLimit").toDouble();
     if ((lower <= 0) || (lower > 1)) {
         ok = false;
-        ErrorLog("LoadZrLimits", "ZrLowerPercentageLimit");
+        ErrorLog("SliderLimits", "WasteLowerPercentageLimit");
         return;
     }
 
-    upper = file.value("ZrUpperPercentageLimit").toDouble();
+    upper = file.value("WasteUpperPercentageLimit").toDouble();
     if ((upper <= 0) || (upper > 1)) {
         ok = false;
-        ErrorLog("LoadZrLimits", "ZrUpperPercentageLimit");
+        ErrorLog("SliderLimits", "WasteUpperPercentageLimit");
         return;
     }
 
@@ -298,11 +304,11 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    LoadZrLimits(currdir+"/settings/zr_limits.ini", w.zr_p_lower, w.zr_p_upper, ok);
+    SliderLimits(currdir+"/settings/slider_limits.ini", w.zr_p_lower, w.zr_p_upper, ok);
     if (!ok) {
-        qCritical("Failed to read ./settings/zr_limits.ini");
+        qCritical("Failed to read ./settings/slider_limits.ini");
         QMessageBox::information(&w, "Ошибка открытия файла",
-                                 "./settings/zr_limits.ini\nПодробности в консоли");
+                                 "./settings/slider_limits.ini\nПодробности в консоли");
         exit(EXIT_FAILURE);
     }
     w.init();
