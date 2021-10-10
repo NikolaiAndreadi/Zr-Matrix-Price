@@ -132,7 +132,7 @@ void MainWindow::updateMatrixRelatedFields() {
     ui->label_MatrixWasteSpecificActivityValue->setText(text);
 
     // MATRIX WASTE CLASS
-    int waste_class = wclasses.CalcWasteClass(wdata, getZrPercentage());
+    int waste_class = wclasses.CalcWasteClass(wdata, getZrPercentage(), wdata.GetisZrCarrier());
     text = QString("%1").arg(waste_class, 1);
     ui->label_MatrixWasteClassValue->setText(text);
     // introduce color
@@ -171,7 +171,7 @@ void MainWindow::updateContainers(matrix_calculated_params &matrix_calc) {
     headers.append("Сумма");
     model->setHorizontalHeaderLabels(headers);
 
-    double mtx_class = wclasses.CalcWasteClass(wdata, getZrPercentage());
+    double mtx_class = wclasses.CalcWasteClass(wdata, getZrPercentage(), wdata.GetisZrCarrier());
     wcontatiners.Filter(mtx_class);
 
     for (int i=0; i<wcontatiners.len(); i++) {

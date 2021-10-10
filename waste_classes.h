@@ -41,11 +41,14 @@ public:
 
     unsigned int GetWasteClassCount() { return classes.length()+1; };
 
-    unsigned int CalcWasteClass(waste_data wd, double percentage) {
+    unsigned int CalcWasteClass(waste_data wd, double percentage, bool isZrCarrier) {
         unsigned int waste_class = 1;
         foreach(auto &wclass, classes) {
             foreach(auto &familyname, wclass.boundaries.keys()) {
-                if (wd.GetSpecificActivityByFamily(familyname)*percentage > wclass.boundaries[familyname])
+                double wasteFamilySpecificActivity = wd.GetSpecificActivityByFamily(familyname)*percentage;
+                if (isZrCarrier)
+                    wasteFamilySpecificActivity/=1.350719109;
+                if (wasteFamilySpecificActivity > wclass.boundaries[familyname])
                     return waste_class;
             }
             waste_class++;

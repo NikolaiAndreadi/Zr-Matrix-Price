@@ -81,7 +81,7 @@ void MainWindow::save_file() {
     fout << "Объем матрицы c РАО, м^3: " << data_sel_mtx.volume << endl;
     fout << "Уд. активность отходов, МБк/кг: " << data_sel_mtx.specific_activity << endl;
 
-    double mtx_class = wclasses.CalcWasteClass(wdata, sel_mtx.max_zr_percentage);
+    double mtx_class = wclasses.CalcWasteClass(wdata, sel_mtx.max_zr_percentage, wdata.GetisZrCarrier());
     double one_cnt_disp_cost = wclasses.CalcDisposalCost(mtx_class);
     fout << endl << "Класс отходов: " << ui->label_MatrixWasteClassValue->text() << endl;
     fout << "Стоимость захоронения 1 контейнера: " <<
