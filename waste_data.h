@@ -100,6 +100,7 @@ public:
             sum += item.spec_activity;
         return sum;
     };
+    QString GetStrSumSpecificActivity() {return QString("%1").arg(GetSumSpecificActivity(), 0, 'f', 3); };
 
     void SetSpecificActivity(QString name, double spec_activity) {
         for (int i=0; i<isotopes.length(); i++)

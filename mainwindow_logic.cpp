@@ -60,6 +60,7 @@ double MainWindow::getZrPercentage() {
 
 
 void MainWindow::updateWasteData() {
+    ui->label_SumSpecActivityValue->setText(wdata.GetStrSumSpecificActivity());
     ui->label_ActivityValue->setText(wdata.GetStrActivity());
 }
 
