@@ -60,7 +60,11 @@ void MainWindow::save_file() {
 
     fout << endl << "Носитель РАО: " << (wdata.GetisZrCarrier() ? "Металлический цирконий" : "Диоксид циркония") << endl;
     fout << "Удельная активность, МБк/кг: " << wdata.GetSumSpecificActivity() << endl;
-    fout << "Масса, кг: " << wdata.GetMass() << endl;
+    if (wdata.GetisZrCarrier()) {
+        fout << "Исходная масса, кг: " << ui->doubleSpinBox_WasteMass->value() << endl;
+        fout << "Масса после обжига, кг: " << wdata.GetMass() << endl;
+    } else
+        fout << "Масса, кг: " << wdata.GetMass() << endl;
     fout << "Активность, МБк: " << wdata.GetActivity() << endl;
 
     fout << endl << "Данные выбранной матрицы" << endl;

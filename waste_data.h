@@ -40,11 +40,7 @@ public:
     };
 
 
-    double GetActivity() {
-        if (isZrCarrier)
-            return GetSumSpecificActivity() * mass * 1.350719109;
-        return GetSumSpecificActivity() * mass;
-    };
+    double GetActivity() { return GetSumSpecificActivity() * mass; };
     QString GetStrActivity() {return QString("%1").arg(GetActivity(), 0, 'f', 3); };
 
 
