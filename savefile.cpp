@@ -51,7 +51,6 @@ void MainWindow::save_file() {
     fout << "Отчёт стоимости переработки РАО Zr" << endl;
     fout << "Можно импортировать в excel с двоеточием как разделитель" << endl;
     fout << "По вопросам обращаться: nikolai.andreadi@chemistry.msu.ru" << endl;
-    fout << "Исходный код программы: https://github.com/NikolaiAndreadi/ZrPrice" << endl;
 
     fout << endl << "Состав РАО" << endl;
     fout << "Название : Удельная активность, МБк/кг" << endl;
